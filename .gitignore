@@ -1,0 +1,11 @@
+node_modules
+npm-debug.*
+dist
+.gulp-cache
+*.log
+.DS_Store
+env.js
+database/database.sqlite
+
+
+/.eslintrc
