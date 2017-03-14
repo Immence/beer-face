@@ -9,3 +9,5 @@ database/database.sqlite
 
 
 /.eslintrc
+
+/public/

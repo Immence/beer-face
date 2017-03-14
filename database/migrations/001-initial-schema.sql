@@ -11,6 +11,11 @@ CREATE TABLE Beers (
   smile DECIMAL,
   age DECIMAL);
 
+CREATE TABLE Images (
+  image INTEGER PRIMARY KEY,
+  filepath TEXT UNIQUE NOT NULL,
+  faces TEXT);
+
 INSERT INTO Beers (
   name,
   description,
@@ -79,3 +84,4 @@ VALUES (
 
 -- Down
 DROP TABLE Beers;
+DROP TABLE Images;

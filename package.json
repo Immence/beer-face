@@ -14,7 +14,8 @@
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "restify": "^4.3.0",
-    "sqlite": "^2.2.4"
+    "sqlite": "^2.2.4",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",

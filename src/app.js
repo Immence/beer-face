@@ -1,6 +1,7 @@
 import restify from 'restify';
 import Promise from 'bluebird';
 import db from 'sqlite';
+import './env';
 
 import Routes from './routes/Routes';
 
@@ -14,7 +15,9 @@ const routes = new Routes(server);
 
 server.use(restify.gzipResponse());
 server.pre(restify.pre.sanitizePath());
-server.use(restify.bodyParser());
+server.use(restify.bodyParser({
+  keepExtensions: true,
+}));
 
 
 server.use((req, res, next) => {

@@ -7,6 +7,10 @@ module.exports = {
     app: path.resolve(__dirname, 'src/app.js'),
   },
   target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
   devtool: 'source-map',
   externals: [nodeExternals()],
   output: {

@@ -1,4 +1,5 @@
 import { getBeer, listBeers, addBeer } from '../controllers/beers';
+import { listImages, storeImage, getFaces, suggestBeers } from '../controllers/suggestions';
 
 export default class PublicRoutes {
 
@@ -7,18 +8,28 @@ export default class PublicRoutes {
   }
 
   setupRoutes() {
+    this.server.post(
+      'api/suggest',
+      [storeImage, getFaces, suggestBeers],
+    );
+
     this.server.get(
-      '/beer/:beer',
+      'api/images',
+      listImages,
+    );
+
+    this.server.get(
+      'api/beer/:beer',
       getBeer,
     );
 
     this.server.get(
-      '/beer',
+      'api/beer',
       listBeers,
     );
 
     this.server.post(
-      '/beer',
+      'api/beer',
       addBeer,
     );
   }
