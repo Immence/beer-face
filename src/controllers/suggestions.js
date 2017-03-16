@@ -12,8 +12,6 @@ export function listImages(req, res, next) {
   return new Images(req.locals.db)
     .list()
     .then((images) => {
-      console.log('got it');
-      console.log(images);
       res.send(images);
       next();
     })
@@ -27,32 +25,31 @@ export function storeImage(req, res, next) {
   fs.rename(req.files.image.path, newPath, (err) => {
     next({ error: 'Failed to store image', err });
   });
+  // eslint-disable-next-line no-param-reassign
+  req.locals.imagePath = newPath;
   return insertImage(req.locals.db, newPath)
-  .then(() => next())
-  .catch(err => next(err));
+    .then(() => next())
+    .catch(err => next(err));
 }
 
 export function getFaces(req, res, next) {
-  console.log('getting faces');
-  return next();
+  return Faces.detect(req.locals.imagePath)
+    .then((faces) => {
+      res.send(faces);
+      next();
+    })
+    .catch(err => next(err));
 }
 
 export function suggestBeers(req, res, next) {
-  console.log('suggest beers');
-  res.send('fuck');
   return next();
 }
 
 
 export function getSuggestions(req, res, next) {
-  // store file
-  // store filename in database over suggestions
-  // return suggestions
-
   Faces.detect
     .catch(err => next(err))
     .then((beer) => {
-      res.send(beer);
       return next();
     });
 }
