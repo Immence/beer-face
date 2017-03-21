@@ -17,20 +17,11 @@ function parseFaces(unparsedFaces) {
       beard: unparsedFace.faceAttributes.facialHair.beard,
       sideburns: unparsedFace.faceAttributes.facialHair.sideburns,
       age: unparsedFace.faceAttributes.age,
+      male: (unparsedFace.faceAttributes.gender === 'male') ? 1 : 0,
+      female: (unparsedFace.faceAttributes.gender === 'female') ? 1 : 0,
+      glasses: (unparsedFace.faceAttributes.glasses === 'NoGlasses') ? 0 : 1,
+      faceRectangle: unparsedFace.faceRectangle,
     };
-
-    if (unparsedFace.faceAttributes.gender === 'male') {
-      parsedFace.male = 1;
-      parsedFace.female = 0;
-    } else if (unparsedFace.faceAttributes.gender === 'female') {
-      parsedFace.male = 0;
-      parsedFace.female = 1;
-    }
-
-    parsedFace.glasses = 0;
-    if (unparsedFace.faceAttributes.glasses !== 'NoGlasses') {
-      parsedFace.glasses = 1;
-    }
     return parsedFace;
   });
 }
@@ -71,7 +62,12 @@ function getSuggestion(face, beers) {
     .then(beerList =>
       beerList.map((beer) => {
         const beerScore = {
-          beer: beer.beer,
+          beer: {
+            beer: beer.beer,
+            name: beer.name,
+            description: beer.description,
+          },
+          parsedFace: face,
           score: getBeerScore(beer, face),
         };
         return beerScore;
