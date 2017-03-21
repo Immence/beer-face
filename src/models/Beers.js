@@ -18,12 +18,12 @@ export default class Beers {
     male,
     female,
     sideburns,
-    mustach,
+    moustach,
     beard,
     age,
     smile }) {
     return this.db
-      .run('INSERT INTO Beers(beer, name, description, male, female, sideburns, mustach, beard, age, smile) values(NULL,?,?,?,?,?,?,?,?,?)',
-      name, description, male, female, sideburns, mustach, beard, age, smile);
+      .run('INSERT INTO Beers(beer, name, description, male, female, sideburns, moustache, beard, age, smile) values(NULL,?,?,?,?,?,?,?,?,?)',
+      name, description, male, female, sideburns, moustach, beard, age, smile);
   }
 }

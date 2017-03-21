@@ -1,5 +1,4 @@
 import fs from 'fs';
-import request from 'request';
 import rp from 'request-promise';
 
 export default class Faces {
