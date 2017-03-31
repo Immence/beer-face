@@ -99,7 +99,7 @@ export function listImages(req, res, next) {
 }
 
 export function storeImage(req, res, next) {
-  const folder = path.resolve(__dirname, '../public/faces/');
+  const folder = path.resolve(__dirname, './images/');
   const filename = `${uuid()}${path.extname(req.files.image.path)}`;
   const newPath = path.join(folder, filename);
   fs.rename(req.files.image.path, newPath, (err) => {
