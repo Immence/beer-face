@@ -11,6 +11,10 @@ export default class PublicRoutes {
   setupRoutes() {
     this.server.get(/\/public\/?.*/, restify.serveStatic({
       directory: __dirname,
+    }));
+
+    this.server.get('/', restify.serveStatic({
+      directory: __dirname,
       default: 'index.html',
     }));
 
