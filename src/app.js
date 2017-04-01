@@ -6,7 +6,7 @@ import Routes from './routes/Routes';
 
 global.Promise = Promise;
 
-const port = 8080;
+const port = (process.env.PORT || 5000);
 
 const server = restify.createServer();
 const routes = new Routes(server);
