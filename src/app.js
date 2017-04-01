@@ -1,7 +1,6 @@
 import restify from 'restify';
 import Promise from 'bluebird';
 import db from 'sqlite';
-import './env';
 
 import Routes from './routes/Routes';
 
