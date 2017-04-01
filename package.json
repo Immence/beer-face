@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack --progress --colors --watch --debug",
-    "heroku-prebuild": "webpack",
+    "heroku-postbuild": "webpack",
     "start": "yarn build && node dist/app.js",
     "start:dev": "yarn build && nodemon dist/app.js --config nodemon.json"
   },
