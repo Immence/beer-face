@@ -5,11 +5,11 @@ export default class Images {
   }
 
   add(filepath) {
-    return this.db.run('INSERT INTO Images(image, filepath) values(NULL,?)', filepath);
+    return this.db.query('INSERT INTO images(image, filepath) values(NULL,?)', filepath);
   }
 
   list() {
-    return this.db.all('SELECT * FROM Images');
+    return this.db.any('SELECT * FROM images');
   }
 
   update(image) {

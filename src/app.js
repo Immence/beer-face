@@ -1,12 +1,17 @@
 import restify from 'restify';
 import Promise from 'bluebird';
-import db from 'sqlite';
 
 import Routes from './routes/Routes';
 
+const pgp = require('pg-promise')();
+
 global.Promise = Promise;
 
-const port = (process.env.PORT || 5000);
+// Get the enviroment
+const db = pgp(process.env.DATABASE_URL);
+
+// get the port from env. variable or run on 8080
+const port = (process.env.PORT || 8080);
 
 const server = restify.createServer();
 const routes = new Routes(server);
@@ -28,7 +33,4 @@ server.use((req, res, next) => {
 routes.setupRoutes();
 
 Promise.resolve()
-  .then(() => db.open('./database/database.sqlite', { Promise }))
-  .then(() => db.migrate({ force: 'last', migrationsPath: './database/migrations' }))
-  .catch(error => console.error('Database Error:', error.stack))
   .finally(() => server.listen(port, () => console.log('%s listening at %s', server.name, server.url)));

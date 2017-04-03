@@ -5,25 +5,17 @@ export default class Beers {
   }
 
   single(beer) {
-    return this.db.get('SELECT beer, name, description FROM Beers WHERE beer = ?', beer);
+    return this.db.one('SELECT beer, name, description FROM "beers" WHERE beer = $1', beer);
   }
 
   list() {
-    return this.db.all('SELECT * FROM Beers');
+    return this.db.query('SELECT * FROM "beers"');
   }
 
-  add({
-    name,
-    description,
-    male,
-    female,
-    sideburns,
-    moustach,
-    beard,
-    age,
-    smile }) {
+  add(beerParams) {
+    console.log('234234');
     return this.db
-      .run('INSERT INTO Beers(beer, name, description, male, female, sideburns, moustache, beard, age, smile) values(NULL,?,?,?,?,?,?,?,?,?)',
-      name, description, male, female, sideburns, moustach, beard, age, smile);
+      .query('INSERT INTO "beers" (beer, name, description, male, female, sideburns, moustache, beard, age, smile) values (DEFAULT, $<name>, $<description>, $<male>, $<female>, $<sideburns>, $<moustache>, $<beard>, $<age>, $<smile>)',
+      beerParams);
   }
 }
