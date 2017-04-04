@@ -7,6 +7,7 @@ const pgp = require('pg-promise')();
 
 global.Promise = Promise;
 
+console.log(`${process.env.DATABASE_URL}?ssl=true`);
 // Get the enviroment
 const db = pgp(`${process.env.DATABASE_URL}?ssl=true`);
 
