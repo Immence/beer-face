@@ -13,7 +13,6 @@ export default class Beers {
   }
 
   add(beerParams) {
-    console.log('234234');
     return this.db
       .query('INSERT INTO "beers" (beer, name, description, male, female, sideburns, moustache, beard, age, smile) values (DEFAULT, $<name>, $<description>, $<male>, $<female>, $<sideburns>, $<moustache>, $<beard>, $<age>, $<smile>)',
       beerParams);
