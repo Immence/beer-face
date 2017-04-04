@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "build:watch": "webpack --progress --colors --watch --debug",
-    "heroku-postbuild": "export SSL_DATABASE_URL=$DATABASE_URL?ssl=true webpack && pg-migrate up --database-url-var=SSL_DATABASE_URL",
+    "heroku-postbuild": "SSL_DATABASE_URL=$DATABASE_URL?ssl=true pg-migrate up --database-url-var=SSL_DATABASE_URL && webpack",
     "start": "node dist/app.js",
     "start:dev": "yarn build && nodemon dist/app.js --config nodemon.json"
   },
