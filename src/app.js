@@ -8,7 +8,7 @@ const pgp = require('pg-promise')();
 global.Promise = Promise;
 
 // Get the enviroment
-const db = pgp(process.env.DATABASE_URL);
+const db = pgp(`${process.env.DATABASE_URL}?ssl=true`);
 
 // get the port from env. variable or run on 8080
 const port = (process.env.PORT || 8080);
