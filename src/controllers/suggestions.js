@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import uuid from 'uuid/v1';
+import aws from 'aws-sdk';
+
 import Faces from '../models/Faces';
 import Beers from '../models/Beers';
 import Images from '../models/Images';
@@ -120,6 +122,34 @@ export function getFaces(req, res, next) {
       return next();
     })
     .catch(err => next(err));
+}
+
+export function getS3UploadParams(req, res, next) {
+  const s3 = new aws.S3();
+  const filename = `${uuid()}-${Date.now()}`;
+  const S3_BUCKET = process.env.S3_BUCKET;
+
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: filename,
+    Expires: 60,
+    ContentType: 'image/jpeg',
+    ACL: 'public-read',
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if (err) {
+      console.log(s3Params);
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${s3Params.Key}`,
+    };
+    res.write(JSON.stringify(returnData));
+    return res.end();
+  });
 }
 
 export function suggestBeers(req, res, next) {

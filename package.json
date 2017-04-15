@@ -11,6 +11,7 @@
     "start:dev": "yarn build && nodemon dist/app.js --config nodemon.json"
   },
   "dependencies": {
+    "aws-sdk": "^2.41.0",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.0",
