@@ -6,6 +6,8 @@ export default class PublicRoutes {
 
   constructor(server) {
     this.server = server;
+    console.log(__dirname);
+    console.log(process.env.PWD);
   }
 
   setupRoutes() {
