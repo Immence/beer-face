@@ -14,6 +14,3 @@ Endpoints:
 
   post - 'api/beer' - add a beer,
     parameters: name *, description *, male, female, sideburns, mustach, beard, age, smile
-
-
-

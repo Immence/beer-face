@@ -1,14 +1,16 @@
-import fs from 'fs';
-import path from 'path';
 import uuid from 'uuid/v1';
 import aws from 'aws-sdk';
 
 import Faces from '../models/Faces';
 import Beers from '../models/Beers';
-import Images from '../models/Images';
+import Suggestions from '../models/Suggestions';
 
-function insertImage(db, filePath) {
-  return new Images(db).add(filePath);
+function insertImageUrl(db, imageUrl) {
+  return new Suggestions(db).addImage(imageUrl);
+}
+
+function updateSuggestion(db, suggestion, suggestions) {
+  return new Suggestions(db).updateSuggestion(suggestion, JSON.stringify(suggestions));
 }
 
 function parseFaces(unparsedFaces) {
@@ -91,7 +93,7 @@ function getSuggestions(db, faces) {
 }
 
 export function listImages(req, res, next) {
-  return new Images(req.locals.db)
+  return new Suggestions(req.locals.db)
     .list()
     .then((images) => {
       res.send(images);
@@ -101,21 +103,19 @@ export function listImages(req, res, next) {
 }
 
 export function storeImage(req, res, next) {
-  const folder = path.resolve(__dirname, './images/');
-  const filename = `${uuid()}${path.extname(req.files.image.path)}`;
-  const newPath = path.join(folder, filename);
-  fs.rename(req.files.image.path, newPath, (err) => {
-    next({ error: 'Failed to store image', err });
-  });
   // eslint-disable-next-line no-param-reassign
-  req.locals.imagePath = newPath;
-  return insertImage(req.locals.db, newPath)
-    .then(() => next())
+  req.locals.imageUrl = JSON.parse(req.body).imageUrl;
+  return insertImageUrl(req.locals.db, req.locals.imageUrl)
+    .then((result) => {
+      // eslint-disable-next-line no-param-reassign
+      req.locals.suggestion = result[0].suggestion;
+      return next();
+    })
     .catch(err => next(err));
 }
 
 export function getFaces(req, res, next) {
-  return Faces.detect(req.locals.imagePath)
+  return Faces.detect(req.locals.imageUrl)
     .then((faces) => {
       // eslint-disable-next-line no-param-reassign
       req.locals.faces = parseFaces(JSON.parse(faces));
@@ -139,8 +139,6 @@ export function getS3UploadParams(req, res, next) {
 
   s3.getSignedUrl('putObject', s3Params, (err, data) => {
     if (err) {
-      console.log(s3Params);
-      console.log(err);
       return res.end();
     }
     const returnData = {
@@ -155,11 +153,8 @@ export function getS3UploadParams(req, res, next) {
 export function suggestBeers(req, res, next) {
   Promise.all(getSuggestions(req.locals.db, req.locals.faces))
     .then((suggestions) => {
-      // TODO: insert suggestion into image table
-      // TODO: return more than just the suggesion:?
-      // The features of the face? and the features of the beer we suggest?
-      // Kanskje returner bildet, ølanbefaling(på koordinater?), og face score?
       res.send(suggestions);
+      updateSuggestion(req.locals.db, req.locals.suggestion, suggestions);
       return next();
     });
 }
