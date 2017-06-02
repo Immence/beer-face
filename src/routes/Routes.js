@@ -1,4 +1,5 @@
 import restify from 'restify';
+import fs from 'fs';
 import path from 'path';
 import { getBeer, listBeers, addBeer } from '../controllers/beers';
 import { listImages, storeImage, getFaces, suggestBeers, getS3UploadParams } from '../controllers/suggestions';
@@ -12,8 +13,12 @@ export default class PublicRoutes {
 
   setupRoutes() {
     this.server.get('/', () => {
-      console.log('dirname', __dirname);
-      console.log('cwd', process.cwd());
+      const testFolder = __dirname;
+      fs.readdir(testFolder, (err, files) => {
+        files.forEach((file) => {
+          console.log(file);
+        });
+      });
     });
 
     this.server.get(/\/public\/?.*/, restify.serveStatic({
