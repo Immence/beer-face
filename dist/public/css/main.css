@@ -1,0 +1,60 @@
+h1 {
+  text-align: center;
+}
+
+body {
+  background-color: #263238;
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  padding: 20px;
+  background: #217b3b;
+  color: #fff;
+  display: inline-block;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  cursor: pointer;
+  vertical-align: middle;
+  position: relative;
+}
+
+.btn:after {
+  content: "";
+  height: 12px;
+  width: 100%;
+  background: #004808;
+  position: absolute;
+  border-radius: 0 5px;
+  left: 0;
+  bottom: -10px;
+  z-index: -1;
+  align-items: center;
+}
+
+.btn-image {
+  height: 40px;
+  margin-right: 20px;
+}
+
+.images {
+  display: flex;
+  flex-direction: row;
+}
+
+.camera_view {
+  width: 768px;
+  height: 430px;
+}
+
+.result {
+  display: none;
+}
