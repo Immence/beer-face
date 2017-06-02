@@ -10,9 +10,6 @@ export default class Suggestions {
 
 
   updateSuggestion(suggestion, suggestions) {
-    console.log('updateing');
-    console.log(suggestion);
-    console.log(suggestions);
     return this.db.query('UPDATE "suggestions" SET suggestions = $<suggestions> WHERE suggestion = $<suggestion>', { suggestions, suggestion });
   }
 
