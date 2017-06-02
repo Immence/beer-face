@@ -1,6 +1,7 @@
 node_modules
 npm-debug.*
-dist
+dist/app.js
+dist/app.js.map
 .gulp-cache
 *.log
 .DS_Store
