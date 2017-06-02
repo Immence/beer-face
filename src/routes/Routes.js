@@ -1,6 +1,8 @@
 import restify from 'restify';
+import path from 'path';
 import { getBeer, listBeers, addBeer } from '../controllers/beers';
 import { listImages, storeImage, getFaces, suggestBeers, getS3UploadParams } from '../controllers/suggestions';
+
 
 export default class PublicRoutes {
 
@@ -10,11 +12,11 @@ export default class PublicRoutes {
 
   setupRoutes() {
     this.server.get(/\/public\/?.*/, restify.serveStatic({
-      directory: __dirname,
+      directory: path.join(process.cwd(), '/dist'),
     }));
 
     this.server.get('/', restify.serveStatic({
-      directory: __dirname,
+      directory: path.join(process.cwd(), '/dist'),
       default: 'index.html',
     }));
 
