@@ -11,6 +11,11 @@ export default class PublicRoutes {
   }
 
   setupRoutes() {
+    this.server.get('/', () => {
+      console.log('dirname', __dirname);
+      console.log('cwd', process.cwd());
+    });
+
     this.server.get(/\/public\/?.*/, restify.serveStatic({
       directory: path.join(process.cwd(), '/dist'),
     }));
