@@ -14,6 +14,6 @@ export default class Suggestions {
   }
 
   list() {
-    return this.db.any('SELECT * FROM images');
+    return this.db.any('SELECT * FROM suggestions');
   }
 }

@@ -18,6 +18,16 @@ export function getBeer(req, res, next) {
     .catch(err => next(err));
 }
 
+export function updateBeer(req, res, next) {
+  return new Beers(req.locals.db).update(req.params)
+    .then((beer) => {
+      res.send(beer);
+      return next();
+    })
+    .catch(err => next(err));
+}
+
+
 export function addBeer(req, res, next) {
   return new Beers(req.locals.db).add(req.params)
     .then(() => {

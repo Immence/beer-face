@@ -1,6 +1,6 @@
 import restify from 'restify';
-import { getBeer, listBeers, addBeer } from '../controllers/beers';
-import { listImages, storeImage, getFaces, suggestBeers, getS3UploadParams } from '../controllers/suggestions';
+import { getBeer, listBeers, addBeer, updateBeer } from '../controllers/beers';
+import { listImages, listSuggestions, storeImage, getFaces, suggestBeers, getS3UploadParams } from '../controllers/suggestions';
 
 export default class PublicRoutes {
 
@@ -39,8 +39,18 @@ export default class PublicRoutes {
     );
 
     this.server.get(
+      'api/suggestion',
+      listSuggestions,
+    );
+
+    this.server.get(
       'api/beer',
       listBeers,
+    );
+
+    this.server.patch(
+      'api/beer',
+      updateBeer,
     );
 
     this.server.post(

@@ -8,6 +8,10 @@ export default class Beers {
     return this.db.one('SELECT * FROM "beers" WHERE beer = $1', beer);
   }
 
+  update(beerParams) {
+    return this.db.query('UPDATE "beers" SET (name, description, male, female, sideburns, moustache, beard, age, smile) values ($<name>, $<description>, $<male>, $<female>, $<sideburns>, $<moustache>, $<beard>, $<age>, $<smile>) WHERE beer = $<beer>', beerParams);
+  }
+
   list() {
     return this.db.query('SELECT * FROM "beers"');
   }

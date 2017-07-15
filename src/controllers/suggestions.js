@@ -150,6 +150,15 @@ export function getS3UploadParams(req, res, next) {
   });
 }
 
+export function listSuggestions(req, res, next) {
+  return new Suggestions(req.locals.db).list()
+    .then((beers) => {
+      res.send(beers);
+      return next();
+    })
+    .catch(err => next(err));
+}
+
 export function suggestBeers(req, res, next) {
   Promise.all(getSuggestions(req.locals.db, req.locals.faces))
     .then((suggestions) => {
