@@ -1,6 +1,5 @@
 import restify from 'restify';
 import Promise from 'bluebird';
-
 import Routes from './routes/Routes';
 
 const pgp = require('pg-promise')();
@@ -8,13 +7,15 @@ const pgp = require('pg-promise')();
 global.Promise = Promise;
 
 // Get the enviroment
-const db = pgp(`${process.env.DATABASE_URL}?ssl=true`);
+const db = pgp(`${process.env.DATABASE_URL}`);
 
 // get the port from env. variable or run on 8080
 const port = (process.env.PORT || 8080);
 
 const server = restify.createServer();
 const routes = new Routes(server);
+
+server.use(restify.CORS());
 
 
 server.use(restify.gzipResponse());
