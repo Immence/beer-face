@@ -9,7 +9,7 @@ export default class Beers {
   }
 
   update(beerParams) {
-    return this.db.query('UPDATE "beers" SET (name, description, male, female, sideburns, moustache, beard, age, smile) values ($<name>, $<description>, $<male>, $<female>, $<sideburns>, $<moustache>, $<beard>, $<age>, $<smile>) WHERE beer = $<beer>', beerParams);
+    return this.db.query('UPDATE "beers" SET (name, description, male, female, sideburns, moustache, beard, age, smile) = ($<name>, $<description>, $<male>, $<female>, $<sideburns>, $<moustache>, $<beard>, $<age>, $<smile>) WHERE beer = $<beer>', beerParams);
   }
 
   list() {
