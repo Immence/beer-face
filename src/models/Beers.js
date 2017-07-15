@@ -5,7 +5,7 @@ export default class Beers {
   }
 
   single(beer) {
-    return this.db.one('SELECT beer, name, description FROM "beers" WHERE beer = $1', beer);
+    return this.db.one('SELECT * FROM "beers" WHERE beer = $1', beer);
   }
 
   list() {
