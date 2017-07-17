@@ -14,6 +14,6 @@ export default class Suggestions {
   }
 
   list() {
-    return this.db.any('SELECT * FROM suggestions');
+    return this.db.any('SELECT * FROM suggestions ORDER BY suggestion DESC');
   }
 }
