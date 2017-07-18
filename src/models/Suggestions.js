@@ -14,6 +14,6 @@ export default class Suggestions {
   }
 
   list() {
-    return this.db.any('SELECT * FROM suggestions ORDER BY suggestion DESC WHERE suggestions IS NOT NULL');
+    return this.db.any('SELECT * FROM suggestions WHERE suggestions IS NOT NULL ORDER BY suggestion DESC');
   }
 }
